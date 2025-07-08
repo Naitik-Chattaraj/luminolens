@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login | LuminoLens</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Favicon & Branding -->
+  <link rel="icon" href="/assets/LuminoLens-logo.png" type="image/png" />
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Meta Tags -->
+  <meta name="description" content="Login to your LuminoLens account" />
+  <meta name="keywords" content="glasses, LuminoLens, login, specs, account" />
+  <meta name="author" content="Naitik Chattaraj" />
+
+  <!-- OG Tags -->
+  <meta property="og:title" content="Login | LuminoLens" />
+  <meta property="og:description" content="Access your LuminoLens dashboard and protect your eyes." />
+  <meta property="og:type" content="website" />
+
+  <!-- Styles -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(to right, #f0f4f8, #d9e4f5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-card {
+      background: white;
+      padding: 3rem 2rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .login-card img {
+      width: 120px;
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      margin-bottom: 1.5rem;
+      color: #2c3e50;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 15px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      transition: 0.3s ease;
+    }
+
+    input:focus {
+      border-color: #2980b9;
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #2980b9;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #1f5f8b;
+    }
+
+    #output {
+      margin-top: 1rem;
+      color: red;
+      font-size: 0.9rem;
+    }
+
+    @media(max-width: 480px) {
+      .login-card {
+        padding: 2rem 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="login-card">
+    <img src="/media/LuminoLens-full-logo.png" alt="LuminoLens Logo" />
+    <h2>Login to LuminoLens</h2>
+    <input id="login-email" type="email" placeholder="Email">
+    <input id="login-pass" type="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <p style="margin-top: 1rem; font-size: 0.9rem;">
+  New here?
+  <a href="/register/" style="color: #2980b9; text-decoration: none; font-weight: 500;">Register Now!</a>
+</p>
+    <p id="output"></p>
+  </div>
+
+  <script>
+async function login() {
+  const email = document.getElementById('login-email').value;
+  const password = document.getElementById('login-pass').value;
+
+  const res = await fetch('/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password })
+  });
+
+  const data = await res.json();
+
+  if (res.ok) {
+    // Save user info in localStorage (✅ THIS PART WAS MISSING)
+    const currentUser = { id: data.id, email }; // name is fetched in dashboard anyway
+    localStorage.setItem("currentUser", JSON.stringify(currentUser));
+
+    // Redirect to dashboard
+    window.location.href = `/dashboard.html?id=${data.id}`;
+  } else {
+    document.getElementById('output').innerText = data.msg || 'Login failed.';
+  }
+  if (res.ok) {
+    // Merge guest cart if exists
+    const pendingCart = JSON.parse(localStorage.getItem('pending_guest_cart') || '[]');
+    if (pendingCart.length > 0) {
+      const userCartKey = `user_cart_${data.id}`;
+      const userCart = JSON.parse(localStorage.getItem(userCartKey) || '[]');
+      
+      // Merge carts
+      const mergedCart = [...userCart, ...pendingCart];
+      localStorage.setItem(userCartKey, JSON.stringify(mergedCart));
+      localStorage.removeItem('pending_guest_cart');
+    }
+    
+    window.location.href = `/dashboard.html?id=${data.id}`;
+  }
+  const pending = JSON.parse(localStorage.getItem("pending_guest_cart"));
+if (pending && pending.length > 0) {
+  const key = `user_cart_${loggedInUser.id}`;
+  const cart = JSON.parse(localStorage.getItem(key) || "[]");
+  // merge or push
+  pending.forEach(p => {
+    const idx = cart.findIndex(c => c.id === p.id);
+    if (idx > -1) cart[idx].quantity += p.quantity;
+    else cart.push(p);
+  });
+  localStorage.setItem(key, JSON.stringify(cart));
+  localStorage.removeItem("pending_guest_cart");
+}
+
+}
+
+  </script>
+</body>
+</html>

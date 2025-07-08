@@ -1,0 +1,118 @@
+<!-- File: cart.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cart</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #ccc;
+      padding: 10px 0;
+    }
+    .cart-item div {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .cart-item button {
+      padding: 5px 10px;
+      background: #f0f0f0;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    .cart-item button:hover {
+      background: #ddd;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Your Cart</h2>
+    <div id="cart-list"></div>
+    <button onclick="proceedToCheckout()" style="margin-top: 20px; padding: 10px 20px;">Proceed to Buy</button>
+  </div>
+
+  <script>
+    const cartList = document.getElementById("cart-list");
+
+    function getCartKey() {
+      const user = JSON.parse(localStorage.getItem("currentUser"));
+      return user ? `user_cart_${user.id}` : "guest_cart";
+    }
+
+    function loadCart() {
+      const key = getCartKey();
+      return JSON.parse(localStorage.getItem(key) || "[]");
+    }
+
+    function saveCart(cart) {
+      const key = getCartKey();
+      localStorage.setItem(key, JSON.stringify(cart));
+    }
+
+    let cart = loadCart();
+
+    function renderCart() {
+      cartList.innerHTML = "";
+
+      if (cart.length === 0) {
+        cartList.innerHTML = "<p>Your cart is empty.</p>";
+        return;
+      }
+
+      cart.forEach(item => {
+        const div = document.createElement("div");
+        div.className = "cart-item";
+
+        div.innerHTML = `
+          <span>${item.name}</span>
+          <div>
+            <button onclick="changeQty(${item.id}, -1)">-</button>
+            <span>${item.quantity}</span>
+            <button onclick="changeQty(${item.id}, 1)">+</button>
+            <button onclick="removeItem(${item.id})">Remove</button>
+          </div>
+        `;
+
+        cartList.appendChild(div);
+      });
+    }
+
+    function changeQty(id, delta) {
+      const idx = cart.findIndex(item => item.id === id);
+      if (idx !== -1) {
+        cart[idx].quantity += delta;
+        if (cart[idx].quantity <= 0) {
+          cart.splice(idx, 1);
+        }
+        saveCart(cart);
+        renderCart();
+      }
+    }
+
+    function removeItem(id) {
+      cart = cart.filter(item => item.id !== id);
+      saveCart(cart);
+      renderCart();
+    }
+
+    function proceedToCheckout() {
+      const user = JSON.parse(localStorage.getItem("currentUser"));
+      if (!user) {
+        localStorage.setItem("pending_guest_cart", JSON.stringify(cart));
+        window.location.href = "/login/";
+      } else {
+        window.location.href = "checkout.html";
+      }
+    }
+
+    renderCart();
+  </script>
+</body>
+</html>

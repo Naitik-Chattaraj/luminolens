@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/assets/LuminoLens-logo.png" type="image/x-icon" />
+    <link rel="icon" type="image/png" href="/assets/LuminoLens-logo.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="/assets/LuminoLens-logo.png" />
+<link rel="shortcut icon" href="/assets/LuminoLens-logo.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/LuminoLens-logo.png" />
+<meta name="apple-mobile-web-app-title" content="LuminoLens" />
+<link rel="manifest" href="/logo-mark/site.webmanifest" />
+    <title>Contact Us | LuminoLens</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700;800&display=swap" rel="stylesheet">
+      <!-- Meta Description -->
+  <meta name="description" content="Get yourself the best glasses with absolute scientific transparency at LuminoLens" />
+
+  <!-- Meta Keywords -->
+  <meta name="keywords" content="glasses,LuminoLens,specs,repair specs, spectacles, lens, buy lens, lens offer, specs offer" />
+
+  <!-- Author -->
+  <meta name="Naitik Chattaraj" content="LuminoLens" />
+
+  <!-- Open Graph (Facebook/LinkedIn/etc.) -->
+  <meta property="og:title" content="Protect Your Eyes. Power Your Day | LuminoLens" />
+  <meta property="og:description" content="Get yourself the best glasses with absolute scientific transparency at LuminoLens" />
+  <meta property="og:type" content="website" />
+    <link rel="stylesheet" href="/style.css">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-logo">
+      <a href=" / " target="_blank">  
+      <img src="/media/LuminoLens-full-logo.png" alt="LumioLens" id="logo">
+        </a>
+    </div>
+    <div id="menu-toggle">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
+    <div class="navbar-links nav-links" id="nav-links">
+        <a href=" /about-us/">About Us</a>
+
+  <div class="dropdown">
+    <a href="http://localhost:3000/">Products &nbsp;</a>
+    <div class="dropdown-content">
+      <a href="http://localhost:3000/product.html?id=1">Lumino-Flexo</a>
+      <a href="http://localhost:3000/product.html?id=2">Lovino Smart</a>
+    </div>
+  </div>
+      <a href=" /our-vision/">Our Vision</a>
+            <a href=" /contact/">Contact Us</a>
+             <a href="http://localhost:3000/register" class="btn btn-primary">Sign Up</a>         
+        <!--<a href="#" class="get-quote">Get a Quote</a>-->
+    </div>
+</nav>
+<section class="section-1">
+  <div class="bg-video">
+    <video autoplay muted loop playsinline>
+      <source src="/media/hero-contact.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+    <div class="video-overlay"></div>
+  </div>
+
+  <div class="section-content">
+    <h2>All Your Queries <br>In One Place.</h2>
+    <p>
+      Problems with the lens? Broken frame? We've got you covered.
+    </p>
+    <!-- <div class="buttons">
+      <a href="#section-2" class="btn btn-primary">SHOP NOW</a>
+      <a
+        href="http://localhost:3000"
+        class="btn btn-secondary"
+      >
+        <span>
+          Learn More&nbsp;
+          <img
+            class="arrow arrow-default"
+            src="/assets/rightward-arrow.png"
+            alt="→"
+          />
+          <img
+            class="arrow arrow-hover"
+            src="/assets/rightward-arrow-black.png"
+            alt="→"
+          />
+        </span>
+      </a>
+    </div>-->
+  </div>
+
+  <div class="arrow-down">
+    Scroll to learn more &nbsp;
+    <img src="/assets/downward-arrow.png" alt="↓" />
+  </div> 
+</section> 
+<section id="contact" style="padding: 40px; ">
+  <div class="section-content">
+  <h2>Contact Us</h2></div>
+  <form id="contact-form" style="background: #f9f9f9; padding: 40px; border-radius: 20px;">
+    <label for="name">Name</label>
+    <input type="text" name="name" id="name" required />
+
+    <label for="email">Email Address</label>
+    <input type="email" name="email" id="email" required />
+
+    <label for="phone">Phone Number</label>
+    <input type="tel" name="phone" id="phone" required />
+
+    <label for="message">Your Message</label>
+    <textarea name="message" id="message" rows="4" required></textarea>
+
+    <button type="submit">Send Message</button>
+  </form>
+
+  <p id="response-message" style="margin-top: 10px;"></p>
+</section>
+
+<script>
+  const form = document.getElementById('contact-form');
+  const responseMsg = document.getElementById('response-message');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+      const res = await fetch("https://script.google.com/macros/s/AKfycby4JIwZ3wfzMNpEXc_6MATthDD0Jg2dW94CDCnMyyxree3EYs926imm_B9TqHyRBHUU/exec", {
+        method: "POST",
+          headers: {
+    "Content-Type": "application/json",
+  },
+        body: JSON.stringify(data),
+      });
+
+      const result = await res.json();
+      if (result.result === "success") {
+        responseMsg.textContent = "Message sent successfully!";
+        form.reset();
+      } else {
+        responseMsg.textContent = "Something went wrong. Try again.";
+      }
+    } catch (error) {
+      console.error(error);
+      responseMsg.textContent = "Failed to send. Please try again later.";
+    }
+    Logger.log(e.postData.contents);
+  });
+</script>
+
+<style>
+  #contact-form {
+    max-width: 500px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  #contact-form input, #contact-form textarea {
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+  }
+
+  #contact-form button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  #contact-form button:hover {
+    background-color: #0056b3;
+  }
+</style>
+
+<footer id="footer">
+  <div class="footer-content">
+    <!-- CTA Section -->
+    <div class="cta-section">
+      <h1 class=" ">Eye-in your life<br>with <span>LuminoLens</span></h1>
+      <p>
+        Get in touch with us today to get eye-catching treatment and visit us for the best in class glasses
+      </p>
+      <div class="cta-buttons">
+        <a href="/contact/"><button class="btn btn-primary">Get a Quote</button></a>
+        <a href="http://localhost:3000" class="btn btn-secondary">
+          <span>
+            Explore Products &nbsp;
+            <img class="arrow arrow-default" src="/assets/rightward-arrow.png" alt=" &rarr;">
+            <img class="arrow arrow-hover" src="/assets/rightward-arrow-black.png" alt=" &rarr;">
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Final Contact Email Banner -->
+  <div class="contact-banner">
+        <!-- Info Section -->
+    <div class="info-section">
+      <!-- Left: Terms & Policies -->
+      <div class="info-column">
+        <a href="/terms-and-conditions/" target="_blank">Terms And Conditions</a>
+        <a href="/refund-policy/" target="_blank">Refund Policy</a>
+        <a href="/privacy-policy/" target="_blank">Privacy Policy</a>
+      </div>
+
+      <!-- Center: WhatsApp & Phone -->
+      <div class="info-column">
+
+      </div>
+
+      <!-- Right: Follow Us + Address -->
+      <div class="info-column">
+        <div style="text-align: right; ">
+          <a href="https://instagram.com/">
+            <img src="/assets/instagram-logo.png" style="width: 20px; height: 20px;" alt="instagram">
+            <span>@luminolens</span>
+          </a>
+          <a href="https://www.linkedin.com/in/">
+            <img src="/assets/linkedin-logo.png" style="width: 20px; height: 20px;" alt="linkedin">
+            <span>Lumino_Lens</span>
+          </a>
+          <a href="https://www.facebook.com/">
+            <img src="/assets/facebook-logo.png" style="width: 20px; height: 20px;" alt="facebook">
+            <span>LuminoLens</span>
+          </a>
+          <address style="margin-top: 1rem;">
+            LuminoLens Headquarters<br>
+            Opposite Chitra Vihar,<br>
+            West Bengal, Kolkata-700107
+          </address>
+        </div>
+      </div>
+    </div>
+    <div class="top-row">
+      <div class="contact-coloumn">
+        <div class="whatsapp" style="display: flex; flex-direction: row;">
+              <h3 class="get-in-touch">Contact us on</h3>
+        <a href="https://wa.me/919876543210" target="_blank" class="btn-secondary">
+          WhatsApp&nbsp;
+          <img src="/assets/whatsapp-logo.png" alt="whatsapp" style="width: 30px; height: 30px;" />
+        </a>
+        </div>
+        <p style="margin-top: 1rem;   margin-left: 15px; color: #d1d5db; font-family: Poppins;">
+          Call us on +91 9876543210 to get instant assistance.
+        </p>
+        </div>
+      <p class="copyright">2025 Luminolens. All Rights Reserved.</p>
+    </div>
+    <p class="email">support@luminolens.com</p>
+  </div>
+</footer>
+<script src="/main.js"></script>
+    </body>
+    </html>

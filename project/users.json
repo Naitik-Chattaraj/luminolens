@@ -1,0 +1,43 @@
+[
+  {
+    "id": "2a8a4b44-e520-40e2-872a-e4ecc74559e8",
+    "email": "naitikchattaraj77@gmail.com",
+    "password": "$2b$10$6biZGlnIJiYIEPW1Gpu9KeQOSKr3tQDZGaLDGA9vFhq457cDxsQHy"
+  },
+  {
+    "id": "365a8936-0d0a-4d7b-9fda-56cd9205450e",
+    "name": "Naitik",
+    "email": "naitikchattaraj41@gmail.com",
+    "password": "$2b$10$/2YjLOhgkikWphGArs/YgON4B.2TPTUI7ncBZq3XyhNTuZFlOyeeG"
+  },
+  {
+    "id": "cfe693d9-5947-455d-a238-924210a69b7c",
+    "name": "hello",
+    "email": "n@123.com",
+    "password": "$2b$10$13MW5L0zMPo.qf9m.pxDLu7EOWRM6wVp2jh1LdzCJ1dRATsk8vDu2"
+  },
+  {
+    "id": "f8866a71-a1fa-49de-a3c2-2d0d9c6d5764",
+    "name": "nc",
+    "email": "nc@123.com",
+    "password": "$2b$10$wrfUCRjCzmTqfFZb3Q..6.UwD0OsRW.gFIH.l4AZgPyg4UL0O3ca."
+  },
+  {
+    "id": "47004c17-ae47-44eb-9faf-079a0be699d5",
+    "name": "n",
+    "email": "naitikchattaraj@gmail.com",
+    "password": "$2b$10$uwp262Mz9xRIfqUafjOpzeEvWN.6zEyWou8ucQDYgMtIEwoZwLXU2"
+  },
+  {
+    "id": "77e65c00-e7f8-4594-92f7-5e88f2725263",
+    "name": "Hellloooo",
+    "email": "nate123@1.com",
+    "password": "$2b$10$urkdo9FGA0BXcSfisy8hheZzXN35KmDOtnydUk.58Jw.CeqOkUrne"
+  },
+  {
+    "id": "f9fa7834-3775-4103-97b3-fefcd9e35242",
+    "name": "Naitik Chattaraj",
+    "email": "nc@gmail.com",
+    "password": "$2b$10$NJv9GLeYBKwSQ9t0TiPfOOswhGPR0V0rP0xm9uETbsljagmseV.A."
+  }
+]

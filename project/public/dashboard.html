@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard | LuminoLens</title>
+  <link rel="stylesheet" href="style.css" />
+      <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+  <style>
+    /* [CSS remains unchanged from your version — looks great] */
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-logo">
+      <a href="/" target="_blank">
+        <img src="/media/LuminoLens-full-logo.png" alt="LuminoLens" id="logo" />
+      </a>
+    </div>
+    <div id="menu-toggle">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
+    <div class="navbar-links nav-links" id="nav-links">
+      <a href="/about-us/">About Us</a>
+      <div class="dropdown">
+        <a href="/products/">Products &nbsp;</a>
+        <div class="dropdown-content">
+          <a href="#">Lumino-Flexo</a>
+          <a href="#">Lovino Smart</a>
+        </div>
+      </div>
+      <a href="/our-vision/">Our Vision</a>
+      <a href="/contact/">Contact Us</a>
+      <div class="dropdown">
+        <a>Welcome <span id="user-email">User</span> &nbsp</a>
+        <div class="dropdown-content">
+          <a class="logout" onclick="goBack()" style="cursor: pointer;">Logout</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+<section class="section-1">
+  <div class="bg-video">
+    <video autoplay muted loop playsinline>
+      <source src="/media/hero-dashboard.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+    <div class="video-overlay"></div>
+  </div>
+
+  <div class="section-content">
+    <h2>Welcome to your<br>Dashboard</h2>
+    <p>
+      Made just for you.
+    </p>
+    <!-- <div class="buttons">
+      <a href="#section-2" class="btn btn-primary">SHOP NOW</a>
+      <a
+        href="http://localhost:3000"
+        class="btn btn-secondary"
+      >
+        <span>
+          Learn More&nbsp;
+          <img
+            class="arrow arrow-default"
+            src="/assets/rightward-arrow.png"
+            alt="→"
+          />
+          <img
+            class="arrow arrow-hover"
+            src="/assets/rightward-arrow-black.png"
+            alt="→"
+          />
+        </span>
+      </a>
+    </div> -->
+  </div>
+
+  <div class="arrow-down">
+    Scroll to learn more &nbsp;
+    <img src="/assets/downward-arrow.png" alt="↓" />
+  </div>
+</section> 
+<div class="section-2">
+             <div class="container">
+      <h2 class="section-title">Your Cart</h2>
+      <div id="cart-list">
+        <div class="empty-message">Your cart is empty</div>
+      </div>
+      <button class="btn btn-primary" onclick="goToCheckout()" style="margin-top: 1rem;">Proceed to Checkout</button>
+    </div>
+</section>
+<style>
+  body{
+    background-color: #000000;
+    font-family: 'Poppins'!important;
+  }
+  .container {
+  padding: 2rem 1rem;
+  background: #000000;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
+}
+
+.section-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.empty-message {
+  text-align: center;
+  color: #666;
+  font-size: 1rem;
+  padding: 2rem 0;
+}
+
+.section-2{
+  padding: 2rem 10rem;
+  background-color: #000000;
+  color: #fff;
+  margin-bottom: 2rem;
+}
+
+.section-title {
+  color: #fff;
+}
+
+#order-list {
+  background-color: #111;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.dashboard-section {
+  padding: 2rem 17rem;
+  background-color: #000000;
+  margin-bottom: 2rem;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+section {
+  margin-bottom: 3rem;
+}
+</style>
+  <section class="section-2">
+      <h2 class="section-title">Order History</h2>
+      <div id="order-list">
+        <div class="empty-message">No past orders</div>
+      </div>
+    </div>
+
+    <div class="dashboard-section">
+      <h2 class="section-title">Recommended For You</h2>
+      <div id="recommended-products" class="product-grid"></div>
+    </div>
+  </section>
+
+  <footer id="footer">
+  <div class="footer-content">
+    <!-- CTA Section -->
+    <div class="cta-section">
+      <h1 class=" ">Eye-in your life<br>with <span>LuminoLens</span></h1>
+      <p>
+        Get in touch with us today to get eye-catching treatment and visit us for the best in class glasses
+      </p>
+      <div class="cta-buttons">
+        <a href="/contact/"><button class="btn btn-primary">Get a Quote</button></a>
+        <a href="/products/" class="btn btn-secondary">
+          <span>
+            Explore Solutions &nbsp;
+            <img class="arrow arrow-default" src="assets/rightward-arrow.png" alt=" &rarr;">
+            <img class="arrow arrow-hover" src="assets/rightward-arrow-black.png" alt=" &rarr;">
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Final Contact Email Banner -->
+  <div class="contact-banner">
+        <!-- Info Section -->
+    <div class="info-section">
+      <!-- Left: Terms & Policies -->
+      <div class="info-column">
+        <a href="/terms-and-conditions/" target="_blank">Terms And Conditions</a>
+        <a href="/refund-policy/" target="_blank">Refund Policy</a>
+        <a href="/privacy-policy/" target="_blank">Privacy Policy</a>
+      </div>
+
+      <!-- Center: WhatsApp & Phone -->
+      <div class="info-column">
+
+      </div>
+
+      <!-- Right: Follow Us + Address -->
+      <div class="info-column">
+        <div style="text-align: right; ">
+          <a href="https://instagram.com/">
+            <img src="assets/instagram-logo.png" style="width: 20px; height: 20px;" alt="instagram">
+            <span>@luminolens</span>
+          </a>
+          <a href="https://www.linkedin.com/in/">
+            <img src="assets/linkedin-logo.png" style="width: 20px; height: 20px;" alt="linkedin">
+            <span>Lumino_Lens</span>
+          </a>
+          <a href="https://www.facebook.com/">
+            <img src="assets/facebook-logo.png" style="width: 20px; height: 20px;" alt="facebook">
+            <span>LuminoLens</span>
+          </a>
+          <address style="margin-top: 1rem;">
+            LuminoLens Headquarters<br>
+            Opposite Chitra Vihar,<br>
+            West Bengal, Kolkata-700107
+          </address>
+        </div>
+      </div>
+    </div>
+    <div class="top-row">
+      <div class="contact-coloumn">
+        <div class="whatsapp" style="display: flex; flex-direction: row;">
+              <h3 class="get-in-touch">Contact us on</h3>
+        <a href="https://wa.me/91" target="_blank" class="btn-secondary">
+          WhatsApp&nbsp;
+          <img src="assets/whatsapp-logo.png" alt="whatsapp" style="width: 30px; height: 30px;" />
+        </a>
+        </div>
+        <p style="margin-top: 1rem;   margin-left: 15px; color: #d1d5db; font-family: Poppins;">
+          Call us on +91 9876543210 to get instant assistance.
+        </p>
+        </div>
+      <p class="copyright">2025 Luminolens. All Rights Reserved.</p>
+    </div>
+    <p class="email">support@luminolens.com</p>
+  </div>
+</footer>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const userId = params.get("id");
+
+    if (!userId) {
+      document.body.innerHTML = '<h2>Invalid dashboard access. Please <a href="/login/">login</a>.</h2>';
+      throw new Error("Missing user ID");
+    }
+
+    let user = null;
+
+    fetch(`/api/user/${userId}`)
+      .then(res => {
+        if (!res.ok) throw new Error("User not found");
+        return res.json();
+      })
+      .then(data => {
+        user = { id: userId, ...data };
+        document.getElementById("user-email").textContent = user.name;
+        loadCart();
+        loadOrders();
+        loadRecommendedProducts();
+      })
+      .catch(err => {
+        document.body.innerHTML = '<h2>User not found. Please <a href="/login/">login</a>.</h2>';
+        console.error(err);
+      });
+
+    function loadCart() {
+      const cart = JSON.parse(localStorage.getItem(`user_cart_${user.id}`) || '[]');
+      const cartList = document.getElementById('cart-list');
+
+      if (!cart.length) {
+        cartList.innerHTML = '<div class="empty-message">Your cart is empty</div>';
+        return;
+      }
+
+      let html = '';
+      let total = 0;
+
+      cart.forEach(item => {
+        total += item.price * item.quantity;
+        html += `
+          <div class="cart-item">
+            <div>
+              <strong>${item.name}</strong>
+              <span>× ${item.quantity}</span>
+            </div>
+            <div>₹${item.price * item.quantity}</div>
+          </div>
+        `;
+      });
+
+      html += `
+        <div class="cart-item" style="font-weight: bold; border-top: 2px solid #125F8C;">
+          <div>Total</div>
+          <div>₹${total}</div>
+        </div>
+      `;
+
+      cartList.innerHTML = html;
+    }
+
+    function loadOrders() {
+      const orders = JSON.parse(localStorage.getItem(`user_orders_${user.id}`) || '[]');
+      const orderList = document.getElementById('order-list');
+
+      if (!orders.length) {
+        orderList.innerHTML = '<div class="empty-message">No past orders</div>';
+        return;
+      }
+
+      let html = '';
+      orders.forEach(order => {
+        html += `
+          <div class="order-item">
+            <div>
+              <strong>Order #${order.id}</strong><br>
+              <small>${order.date}</small>
+            </div>
+            <div>
+              ${order.items.length} items<br>
+              <strong>₹${order.total}</strong>
+            </div>
+          </div>
+        `;
+      });
+      orderList.innerHTML = html;
+    }
+
+    function loadRecommendedProducts() {
+      const all = JSON.parse(localStorage.getItem('all_products') || '[]');
+      const orders = JSON.parse(localStorage.getItem(`user_orders_${user.id}`) || '[]');
+      const purchasedIds = orders.flatMap(order => order.items.map(item => item.id));
+
+      const recommended = all.filter(p => !purchasedIds.includes(p.id));
+
+      const productsGrid = document.getElementById('recommended-products');
+      if (!recommended.length) {
+        productsGrid.innerHTML = '<div class="empty-message">No recommendations available</div>';
+        return;
+      }
+
+      productsGrid.innerHTML = recommended.map(product => `
+        <div class="product-card">
+          <img src="${product.image}" alt="${product.name}" class="product-image">
+          <div class="product-info">
+            <h3>${product.name}</h3>
+            <p>₹${product.price}</p>
+            <button class="btn btn-primary" onclick="addToCart(${product.id})">Add to Cart</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function addToCart(productId) {
+      const all = JSON.parse(localStorage.getItem('all_products') || '[]');
+      const product = all.find(p => p.id === productId);
+      if (!product) return;
+
+      const key = `user_cart_${user.id}`;
+      const cart = JSON.parse(localStorage.getItem(key) || '[]');
+      const index = cart.findIndex(p => p.id === product.id);
+      if (index > -1) cart[index].quantity++;
+      else cart.push({ ...product, quantity: 1 });
+      localStorage.setItem(key, JSON.stringify(cart));
+      loadCart();
+    }
+
+    function goToCheckout() {
+      const cart = JSON.parse(localStorage.getItem(`user_cart_${user.id}`) || '[]');
+      if (!cart.length) return alert('Your cart is empty');
+      window.location.href = '/checkout.html';
+    }
+
+    function goBack() {
+      localStorage.removeItem('currentUser');
+      window.location.href = '/login/';
+    }
+  </script>
+</body>
+</html>

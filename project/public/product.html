@@ -1,0 +1,186 @@
+<!-- File: product.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Detail</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .product-page {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 2rem 1rem;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 10px;
+  flex: 1;
+  max-width: 300px;
+}
+
+.gallery img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  object-fit: cover;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.gallery img:hover {
+  transform: scale(1.05);
+}
+
+.details {
+  flex: 2;
+  min-width: 300px;
+  padding: 1rem;
+  background: #ffffffcc;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+.details h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.details p {
+  font-size: 1.2rem;
+  color: #444;
+  margin-bottom: 1.5rem;
+}
+
+.details button {
+  margin-right: 1rem;
+  background: #0077ff;
+  color: white;
+  border: none;
+  padding: 0.7rem 1.4rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.details button:hover {
+  background: #005fcc;
+}
+
+@media (max-width: 768px) {
+  .product-page {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .details {
+    width: 100%;
+  }
+
+  .gallery {
+    max-width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  }
+}
+
+  </style>
+</head>
+<body style="background-image: url(media/bg.webp); background-repeat: no-repeat; background-size: cover;">
+  <div class="container product-page">
+    <div class="gallery">
+      <!-- Product images will go here -->
+    </div>
+    <div class="details">
+      <div id="product-detail"></div>
+      <button onclick="addToCart()">Add to Cart</button>
+      <button onclick="goToCart()">Buy Now</button>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const id = parseInt(params.get("id"));
+
+    if (isNaN(id) || id < 1 || id > 10) {
+      document.body.innerHTML = "<h1>Invalid product ID</h1>";
+      throw new Error("Invalid product ID");
+    }
+    const productNames = [
+  "Lumino Flexo",
+  "Lovino Smart",
+  "Clarity Shield Pro",
+  "LumoGuard Alpha",
+  "UV Breaker Pro",
+  "Pixel Protect Max",
+  "NightSight Vision",
+  "GlareSafe Ultra",
+  "OptiGuard X",
+  "VisionPro Elite"
+];
+    // Predefined prices for 10 products
+    const productPrices = [399, 499, 299, 599, 699, 450, 550, 620, 480, 520];
+
+    const product = {
+      id,
+      name: productNames[id - 1],
+      price: productPrices[id - 1],
+      images: [
+        `media/product${id}_1.png`,
+        `media/product${id}_2.png`,
+      ]
+    };
+
+    document.getElementById("product-detail").innerHTML = `
+      <h1>${product.name}</h1>
+      <p>₹${product.price}</p>
+    `;
+
+    const gallery = document.querySelector('.gallery');
+    product.images.forEach(src => {
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = product.name;
+      gallery.appendChild(img);
+    });
+
+    function addToCart() {
+      const user = JSON.parse(localStorage.getItem("currentUser"));
+      const key = user ? `user_cart_${user.id}` : "guest_cart";
+
+      const cart = JSON.parse(localStorage.getItem(key) || "[]");
+      const index = cart.findIndex(p => p.id === product.id);
+      if (index > -1) {
+        cart[index].quantity++;
+      } else {
+        cart.push({ ...product, quantity: 1 });
+      }
+
+      localStorage.setItem(key, JSON.stringify(cart));
+      alert("Added to cart!");
+    }
+
+    function goToCart() {
+      const user = JSON.parse(localStorage.getItem("currentUser"));
+
+      if (!user) {
+        localStorage.setItem("pending_guest_cart", JSON.stringify([{ ...product, quantity: 1 }]));
+        alert("Please login to proceed to checkout.");
+        window.location.href = "/login/";
+        return;
+      }
+
+      const key = `user_cart_${user.id}`;
+      const cart = JSON.parse(localStorage.getItem(key) || "[]");
+      const index = cart.findIndex(p => p.id === product.id);
+      if (index > -1) cart[index].quantity++;
+      else cart.push({ ...product, quantity: 1 });
+      localStorage.setItem(key, JSON.stringify(cart));
+      window.location.href = "/checkout.html";
+    }
+  </script>
+</body>
+</html>

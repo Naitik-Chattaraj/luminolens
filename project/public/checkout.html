@@ -1,0 +1,205 @@
+<!-- File: checkout.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .checkout-steps {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 10px;
+      font-size: 18px;
+    }
+
+    .checkout-steps div {
+      flex: 1;
+      text-align: center;
+      padding: 10px 0;
+      position: relative;
+      transition: all 0.3s ease;
+      color: #aaa;
+      font-weight: 500;
+    }
+
+    .checkout-steps div::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0%;
+      height: 2px;
+      background-color: transparent;
+      transition: width 0.3s ease, background-color 0.3s ease;
+    }
+
+    .checkout-steps .active {
+      color: #1a73e8;
+      font-weight: 700;
+    }
+
+    .checkout-steps .active::after {
+      width: 60%;
+      background-color: #1a73e8;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin-top: 20px;
+      background-color: #1a73e8;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #1663c3;
+    }
+
+    textarea {
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-top: 10px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .btn-group {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    p {
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="checkout-steps" id="step-indicator">
+      <div id="step-1" class="active">1. Cart</div>
+      <div id="step-2">2. Address</div>
+      <div id="step-3">3. Payment</div>
+    </div>
+
+    <div id="checkout-content"></div>
+  </div>
+
+  <script>
+    let step = 1;
+    const content = document.getElementById("checkout-content");
+
+    function getCart() {
+      const user = JSON.parse(localStorage.getItem("currentUser"));
+      const key = user ? `user_cart_${user.id}` : "guest_cart";
+      return JSON.parse(localStorage.getItem(key) || "[]");
+    }
+
+    let cart = getCart();
+
+    function updateStepStyles() {
+      for (let i = 1; i <= 3; i++) {
+        const stepEl = document.getElementById(`step-${i}`);
+        stepEl.classList.toggle('active', i === step);
+      }
+    }
+
+    function renderStep() {
+      updateStepStyles();
+      let html = '';
+
+      if (step === 1) {
+        html += cart.length > 0
+          ? cart.map(c => `<p>${c.name} × ${c.quantity}</p>`).join('')
+          : '<p>Your cart is empty.</p>';
+      } else if (step === 2) {
+        const savedAddress = localStorage.getItem("address") || "";
+        html += `<textarea id="address-input" placeholder="Enter address...">${savedAddress}</textarea>`;
+      } else if (step === 3) {
+        html += `
+          <p>Total: ₹${cart.reduce((sum, item) => sum + item.price * item.quantity, 0)}</p>
+          <button onclick="placeOrder('desktop')">Pay via Desktop</button>
+          <button onclick="placeOrder('mobile')" style="margin-left: 10px;">Pay via Mobile</button>
+        `;
+      }
+
+      html += `<div class="btn-group">`;
+      if (step > 1) html += `<button onclick="prev()">← Previous</button>`;
+      if (step < 3 && (step !== 1 || cart.length > 0)) {
+        html += `<button onclick="next()">Next →</button>`;
+      }
+      html += `</div>`;
+
+      content.innerHTML = html;
+    }
+
+    function next() {
+      if (step === 2) {
+        const address = document.getElementById("address-input").value.trim();
+        if (!address) {
+          alert("Please enter your address.");
+          return;
+        }
+        localStorage.setItem("address", address);
+      }
+
+      if (step < 3) step++;
+      renderStep();
+    }
+
+    function prev() {
+      if (step > 1) step--;
+      renderStep();
+    }
+
+    function placeOrder(method) {
+      const user = JSON.parse(localStorage.getItem("currentUser"));
+      if (!user) {
+        alert("Please login to place your order.");
+        window.location.href = "/login/";
+        return;
+      }
+
+      const cartKey = `user_cart_${user.id}`;
+      const ordersKey = `user_orders_${user.id}`;
+      const userCart = JSON.parse(localStorage.getItem(cartKey) || "[]");
+
+      if (!userCart.length) {
+        alert("Your cart is empty.");
+        return;
+      }
+
+      const total = userCart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      const order = {
+        id: `ORD-${Date.now()}`,
+        items: userCart,
+        total,
+        method,
+        address: localStorage.getItem("address") || "N/A",
+        date: new Date().toLocaleString()
+      };
+
+      const orders = JSON.parse(localStorage.getItem(ordersKey) || "[]");
+      orders.push(order);
+
+      localStorage.setItem(ordersKey, JSON.stringify(orders));
+      localStorage.setItem(cartKey, "[]");
+
+      alert("Order placed successfully!");
+      window.location.href = `/dashboard.html?id=${user.id}`;
+    }
+
+    renderStep();
+  </script>
+</body>
+</html>
