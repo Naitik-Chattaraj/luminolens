@@ -287,5 +287,17 @@
   </div>
 </footer>
 <script src="main.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    if (window.innerWidth <= 768) {
+      document.querySelectorAll("section.vid video, section.vid2 video").forEach(video => {
+        video.removeAttribute("autoplay");
+        video.setAttribute("loop", "");
+        video.setAttribute("controls", ""); // optional: for mobile fallback
+        video.load();
+      });
+    }
+  });
+</script>
     </body>
     </html>

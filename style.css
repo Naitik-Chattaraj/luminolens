@@ -874,3 +874,209 @@ vertical-align: middle;
 .info-column:nth-child(3) address {
   text-align: right;
 }
+@media (max-width: 768px) {
+  #menu-toggle {
+    display: flex;
+  }
+
+  .navbar-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: rgba(30, 30, 30, 0.95);
+    flex-direction: column;
+    width: 100%;
+    padding: 1rem;
+    border-radius: 20px;
+    z-index: 999;
+  }
+
+  .navbar-links.active {
+    display: flex;
+  }
+
+  .navbar-links a {
+    margin: 10px 0;
+    padding-left: 1rem;
+    font-size: 1rem;
+    padding: 0.5rem 7rem;
+  }
+
+  .dropdown-content {
+    position: relative;
+    top: 0;
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+    background-color: transparent;
+    padding-left: 1rem;
+  }
+
+  .dropdown:hover > a::after {
+    transform: none;
+  }
+
+  .dropdown-content a {
+    padding: 8px 0;
+  }
+
+  .dropdown:hover .dropdown-content {
+    transform: none;
+  }
+}
+
+
+/* ======================= */
+/* 💻 Large Screens (Desktops) */
+/* min-width: 1025px ~ default */
+/* ======================= */
+@media (min-width: 1025px) {
+
+}
+
+/* ======================= */
+/* 🧾 Medium Screens (Tablets) */
+/* min-width: 768px and max-width: 1024px */
+/* ======================= */
+@media (max-width: 1024px) and (min-width: 768px) {
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .navbar-links {
+    display: none;
+  }
+
+  .hamburger {
+    display: block;
+  }
+}
+
+/* ======================= */
+/* 📱 Small Screens (Mobiles) */
+/* max-width: 767px */
+/* ======================= */
+@media (max-width: 767px) {
+  .navbar {
+    position: sticky;
+    transform: none;
+  }
+
+  .reveal-navbar {
+    transform: translateY(20%) !important;
+  }
+
+  .section-content h2 {
+    font-size: 2.5rem;
+    max-width: none;
+  }
+
+  .section-content p {
+    font-size: 1rem;
+    max-width: none;
+  }
+
+  .btn {
+    font-size: 15px;
+  }
+
+  .arrow-down {
+    font-size: 15px;
+  }
+
+  section.vid,
+  section.vid2 {
+    height: auto !important;
+  }
+
+  section.vid .holder,
+  section.vid2 .holder {
+    position: relative !important;
+    height: auto !important;
+  }
+
+  section.vid video,
+  section.vid2 video {
+    height: auto !important;
+    object-fit: cover !important;
+    display: block;
+  }
+
+  .cta-section h1 {
+    font-size: 2.5rem;
+    line-height: 3rem;
+  }
+
+  .info-column:nth-child(3) address,
+  .info-column:nth-child(3) a {
+    text-align: center;
+    justify-content: center;
+  }
+  div.services-section .card-holder {
+  flex-direction: column;
+  align-items: center;
+}
+}
+
+/* ======================= */
+/* 📲 Extra Small (Tiny Devices like older phones) */
+/* max-width: 480px */
+/* ======================= */
+@media (max-width: 480px) {
+  body{
+    overflow-x:none;
+  }
+  .navbar {
+  position: sticky;
+  transform: translate(none);
+  }
+    .reveal-navbar {
+    transform: translateY(20%) !important;
+  }
+.section-content h2{
+  font-size: 3rem;
+  max-width: none;
+}
+.section-content p{
+  font-size: 1rem;
+  max-width: none;
+}
+.btn{
+  font-size: 15px;
+}
+.arrow-down{
+  font-size: 15px;
+}
+  section.vid,
+  section.vid2 {
+    height: auto !important;
+  }
+
+  section.vid .holder,
+  section.vid2 .holder {
+    position: relative !important;
+    height: auto !important;
+  }
+
+  section.vid video,
+  section.vid2 video {
+    height: auto !important;
+    object-fit: cover !important;
+    display: block;
+  }
+.cta-section h1{
+  font-size: 50px;
+}
+.info-column:nth-child(3) address{
+  text-align:center;
+}
+.info-column:nth-child(3) a{
+  text-align:center;
+  justify-content: center;
+}
+div.services-section .card-holder {
+  flex-direction: column;
+  align-items: center;
+}
+}
